@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Project-management roles</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --deep:#0B3C49; --teal:#2A9D8F; --coral:#E07A5F; --ink:#263238; --muted:#5F6B6D; --pale:#EEF4F3; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; -moz-text-size-adjust: none; text-size-adjust: 100%; }
+  body { margin: 0; overflow-wrap: break-word; font-family: Calibri, "Segoe UI", Roboto, Arial, sans-serif; color: var(--ink); background: #fff; }
+  main { max-width: 520px; margin: 0 auto; padding: 18px 16px 40px; }
+  h1 { font-size: 21px; color: var(--deep); margin: 4px 0 8px; line-height: 1.25; }
+  p.lead { font-size: 15px; color: var(--muted); margin: 0 0 14px; line-height: 1.4; }
+  .role { background: var(--pale); border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
+  .role h2 { margin: 0 0 4px; font-size: 16px; display: flex; justify-content: space-between; align-items: baseline; }
+  .role h2 span.val { font-size: 22px; color: var(--deep); min-width: 60px; text-align: right; }
+  .role p { margin: 0 0 8px; font-size: 13.5px; color: var(--muted); line-height: 1.35; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  main { width: 100%; }
+  input[type=range] { display: block; width: 100%; max-width: 100%; margin: 0; height: 32px; accent-color: var(--teal); }
+  .opts label { min-width: 0; }
+  .ref a { word-break: break-all; }
+  .total { text-align: center; font-size: 14px; color: var(--muted); margin: 6px 0 2px; }
+  fieldset { border: none; padding: 0; margin: 12px 0; }
+  legend { font-size: 15px; font-weight: bold; margin-bottom: 6px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opts label { flex: 1 1 45%; background: var(--pale); border-radius: 10px; padding: 10px; font-size: 14px; cursor: pointer; }
+  .opts input { margin-right: 6px; }
+  .opts label.wide { flex-basis: 100%; }
+  .hintline { font-size: 13px; color: var(--muted); margin: -2px 0 8px; }
+  #otherText { display: none; width: 100%; margin-top: 8px; padding: 10px; font-size: 16px; font-family: inherit;
+               border: 1px solid #C9D3D1; border-radius: 8px; }
+  .ref { font-size: 11.5px; color: var(--muted); line-height: 1.4; margin-top: 22px; padding-top: 10px;
+         border-top: 1px solid #DDE5E3; padding-left: 1.5em; text-indent: -1.5em; }
+  .ref a { color: var(--muted); }
+  button { width: 100%; padding: 15px; font-size: 18px; font-weight: bold; color: #fff; background: var(--teal);
+           border: none; border-radius: 12px; margin-top: 10px; }
+  button:disabled { background: #A8B5B2; }
+  .msg { text-align: center; font-size: 14px; color: var(--coral); min-height: 20px; margin-top: 8px; }
+  .done { text-align: center; padding: 60px 10px; }
+  .done h1 { font-size: 26px; }
+  .small { font-size: 12px; color: var(--muted); text-align: center; margin-top: 18px; }
+  .lang { display: flex; justify-content: flex-end; gap: 4px; margin-bottom: 6px; }
+  .lang button { width: auto; margin: 0; padding: 6px 12px; font-size: 13px; font-weight: bold; border-radius: 8px;
+                 background: var(--pale); color: var(--muted); }
+  .lang button.on { background: var(--deep); color: #fff; }
+</style>
+</head>
+<body>
+<main id="app">
+  <div class="lang" role="group" aria-label="Language / Sprache">
+    <button type="button" data-lang="de">DE</button><button type="button" data-lang="en">EN</button>
+  </div>
+  <h1 data-t="title">How do you divide your project-management time?</h1>
+  <p class="lead" data-t="lead">Think of a project you currently lead or coordinate. The management literature distinguishes three types of project-management activity. Please allocate your time (total 100%).</p>
+
+  <div class="role"><h2><span data-t="n0">Servicing</span> <span class="val" id="v0">35%</span></h2>
+    <p data-t="d0">I assist my project(s) by performing operational and administrative support, e.g. by offering training or executing documentation or other tasks.</p>
+    <input type="range" id="r0" min="0" max="100" step="5" value="35"></div>
+  <div class="role"><h2><span data-t="n1">Controlling</span> <span class="val" id="v1">30%</span></h2>
+    <p data-t="d1">I enforce and control management standards in my project(s) by ensuring the use of selected methods and tools, monitoring compliance, evaluating project performance, assessing employee performance and managing career promotion.</p>
+    <input type="range" id="r1" min="0" max="100" step="5" value="30"></div>
+  <div class="role"><h2><span data-t="n2">Partnering</span> <span class="val" id="v2">35%</span></h2>
+    <p data-t="d2">I exchange with the project team on equal footing (Austausch auf Augenhöhe): we share knowledge and ideas in both directions, and I collaborate in the work and deliverables as a peer.</p>
+    <input type="range" id="r2" min="0" max="100" step="5" value="35"></div>
+  <div class="total" data-t="total">Total: <b>100%</b> — values you set stay put; the remaining one adjusts</div>
+
+  <fieldset>
+    <legend data-t="legend">Your role</legend>
+    <div class="hintline" data-t="roleHint">Choose the option that fits you best.</div>
+    <div class="opts">
+      <label><input type="radio" name="role" value="professor"><span data-t="r_professor">Professor</span></label>
+      <label><input type="radio" name="role" value="postdoc"><span data-t="r_postdoc">Postdoc</span></label>
+      <label><input type="radio" name="role" value="phd"><span data-t="r_phd">PhD candidate</span></label>
+      <label><input type="radio" name="role" value="student"><span data-t="r_student">Student</span></label>
+      <label class="wide"><input type="radio" name="role" value="other"><span data-t="r_other">Other</span>
+        <input type="text" id="otherText" maxlength="60" autocomplete="off"></label>
+    </div>
+  </fieldset>
+
+  <button id="send" disabled data-t="submit">Submit</button>
+  <div class="msg" id="msg">Set your sliders and choose your role.</div>
+  <div class="small" data-t="privacy">Anonymous: only your three percentages and your role are stored, for this talk only.</div>
+  <div class="ref"><span data-t="refLabel">Reference</span>: Müller, R., Glückler, J., &amp; Aubry, M. (2013). A relational typology of project management offices. <i>Project Management Journal, 44</i>(1), 59–76. <a href="https://doi.org/10.1002/pmj.21321" target="_blank" rel="noopener">https://doi.org/10.1002/pmj.21321</a></div>
+</main>
+
+<script>
+(function () {
+  // >>> Paste your Apps Script web-app URL (ends in /exec) between the quotes: <<<
+  var API = 'PASTE_YOUR_EXEC_URL_HERE';
+  var LIVE = /^https:\/\/script\.google\.com\/.+\/exec$/.test(API);
+
+  // ---------------------------------------------------------------- language
+  var T = {
+    en: {
+      title: 'How do you divide your project-management time?',
+      lead: 'Think of a project you currently lead or coordinate — or, if there is none, the last one you led. Following Müller et al. (2013), project-management work can be described by three roles: servicing, controlling and partnering. Please allocate your time (total 100%).',
+      n0: 'Servicing', n1: 'Controlling', n2: 'Partnering',
+      d0: 'I assist my project(s) by performing operational and administrative support, e.g. by offering training or executing documentation or other tasks.',
+      d1: 'I enforce and control management standards in my project(s) by ensuring the use of selected methods and tools, monitoring compliance, evaluating project performance, assessing employee performance and managing career promotion.',
+      d2: 'I exchange with the project team on equal footing (Austausch auf Augenhöhe): we share knowledge and ideas in both directions, and I collaborate in the work and deliverables as a peer.',
+      total: 'Total: <b>100%</b> — values you set stay put; the remaining one adjusts',
+      legend: 'Your role', roleHint: 'Choose the option that fits you best.',
+      r_professor: 'Professor', r_postdoc: 'Postdoc', r_phd: 'PhD candidate', r_student: 'Student', r_other: 'Other:', otherPh: 'Please describe your role',
+      submit: 'Submit',
+      privacy: 'Anonymous: only your three percentages and your role are stored, for this talk only.',
+      needBoth: 'Set your sliders and choose your role.', needRole: 'Please choose your role.', needOther: 'Please describe your role in the text field.', refLabel: 'Reference',
+      sending: 'Sending…', fail: 'Could not send ({e}). Please try again.', network: 'network',
+      thanks: 'Thank you!', onscreen: 'Your answer is on its way to the screen — look up, you are one of the dots.'
+    },
+    de: {
+      title: 'Wie verteilen Sie Ihre Zeit im Projektmanagement?',
+      lead: 'Denken Sie an ein Projekt, das Sie aktuell leiten oder koordinieren – oder, falls es keines gibt, an Ihr zuletzt geleitetes. Nach Müller et al. (2013) lässt sich Projektmanagement-Arbeit durch drei Rollen beschreiben: Servicing, Controlling und Partnering. Bitte verteilen Sie Ihre Zeit (insgesamt 100 %).',
+      n0: 'Servicing', n1: 'Controlling', n2: 'Partnering',
+      d0: 'Ich unterstütze mein(e) Projekt(e) operativ und administrativ, z. B. durch Schulungen, Dokumentation oder andere Aufgaben.',
+      d1: 'Ich setze Managementstandards in meinem/meinen Projekt(en) durch und kontrolliere sie: Ich sorge für den Einsatz ausgewählter Methoden und Tools, überwache die Einhaltung, bewerte die Projektleistung und die Leistung von Mitarbeitenden und begleite Beförderungen.',
+      d2: 'Ich tausche mich mit dem Projektteam auf Augenhöhe aus: Wir teilen Wissen und Ideen in beide Richtungen, und ich arbeite gleichberechtigt an Aufgaben und Ergebnissen mit.',
+      total: 'Summe: <b>100 %</b> — eingestellte Werte bleiben stehen, der übrige passt sich an',
+      legend: 'Ihre Rolle', roleHint: 'Wählen Sie, was am ehesten auf Sie zutrifft.',
+      r_professor: 'Professor:in', r_postdoc: 'Postdoc', r_phd: 'Doktorand:in', r_student: 'Studierende:r', r_other: 'Andere:', otherPh: 'Bitte beschreiben Sie Ihre Rolle',
+      submit: 'Absenden',
+      privacy: 'Anonym: Gespeichert werden nur Ihre drei Prozentwerte und Ihre Rolle, ausschließlich für diesen Vortrag.',
+      needBoth: 'Bitte stellen Sie die Regler ein und wählen Sie Ihre Rolle.', needRole: 'Bitte wählen Sie Ihre Rolle.', needOther: 'Bitte beschreiben Sie Ihre Rolle im Textfeld.', refLabel: 'Literatur',
+      sending: 'Wird gesendet…', fail: 'Senden fehlgeschlagen ({e}). Bitte versuchen Sie es erneut.', network: 'Netzwerk',
+      thanks: 'Vielen Dank!', onscreen: 'Ihre Antwort ist auf dem Weg zur Leinwand — schauen Sie hoch, Sie sind einer der Punkte.'
+    }
+  };
+  var lang = null;
+  try { lang = localStorage.getItem('rolepoll-lang'); } catch (e) {}
+  if (!T[lang]) lang = /^de/i.test(navigator.language || '') ? 'de' : 'en';
+  function t(k) { return T[lang][k]; }
+  function setLang(l) {
+    lang = l;
+    try { localStorage.setItem('rolepoll-lang', l); } catch (e) {}
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.innerHTML = t(el.dataset.t); });
+    document.querySelectorAll('.lang button').forEach(function (b) { b.classList.toggle('on', b.dataset.lang === l); });
+    var ot = document.getElementById('otherText'); if (ot) ot.placeholder = t('otherPh');
+  }
+  document.querySelectorAll('.lang button').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.dataset.lang); render(); });
+  });
+
+  // units of 5 percentage points, 20 units in total
+  var u = [7, 6, 7], touched = false;
+  var order = [];                                                      // sliders the user has set, oldest first
+
+  // The slider being moved gets exactly the chosen value. Values the user set earlier stay fixed;
+  // the difference is absorbed by a slider the user has not set yet (or, if all are set, by the
+  // one set longest ago). Only if that one hits 0 does the next one give way.
+  function setShare(i, v) {
+    v = Math.max(0, Math.min(20, v));
+    order = order.filter(function (x) { return x !== i; });
+    var others = [(i + 1) % 3, (i + 2) % 3], rem = 20 - v;
+    var free = others.filter(function (j) { return order.indexOf(j) < 0; });
+    if (free.length === 2) {                                           // nothing else set yet: split as before
+      var j = others[0], k = others[1], a;
+      a = (u[j] + u[k] === 0) ? Math.floor(rem / 2) : Math.round(rem * u[j] / (u[j] + u[k]));
+      u[j] = a; u[k] = rem - a;
+    } else {
+      var f = free.length ? free[0]
+            : (order.indexOf(others[0]) < order.indexOf(others[1]) ? others[0] : others[1]);
+      var l = others[0] === f ? others[1] : others[0];                 // the one to keep fixed
+      if (rem >= u[l]) { u[f] = rem - u[l]; } else { u[l] = rem; u[f] = 0; }
+    }
+    u[i] = v;
+    order.push(i);
+  }
+
+  function roleValue() {                                              // '' if incomplete
+    var r = document.querySelector('input[name=role]:checked');
+    if (!r) return '';
+    if (r.value !== 'other') return r.value;
+    var txt = document.getElementById('otherText').value.replace(/\s+/g, ' ').trim().slice(0, 60);
+    return txt ? 'other: ' + txt : '';
+  }
+
+  function render() {
+    for (var i = 0; i < 3; i++) {
+      document.getElementById('r' + i).value = u[i] * 5;
+      document.getElementById('v' + i).textContent = (u[i] * 5) + '%';
+    }
+    var btn = document.getElementById('send');
+    var r = document.querySelector('input[name=role]:checked'), ot = document.getElementById('otherText');
+    var isOther = !!r && r.value === 'other';
+    ot.style.display = isOther ? 'block' : 'none';
+    var ok = touched && roleValue() !== '';
+    btn.disabled = !ok;
+    document.getElementById('msg').textContent =
+      ok ? '' : !touched ? t('needBoth') : isOther ? t('needOther') : t('needRole');
+  }
+
+  [0, 1, 2].forEach(function (i) {
+    document.getElementById('r' + i).addEventListener('input', function (e) {
+      touched = true; setShare(i, Math.round(e.target.value / 5)); render();
+    });
+  });
+
+  document.querySelectorAll('input[name=role]').forEach(function (el) {
+    el.addEventListener('change', function () { render(); if (el.value === 'other') document.getElementById('otherText').focus(); });
+  });
+  document.getElementById('otherText').addEventListener('input', render);
+  document.getElementById('otherText').addEventListener('focus', function () {
+    document.querySelector('input[name=role][value=other]').checked = true; render();
+  });
+
+  function done() {
+    document.getElementById('app').innerHTML =
+      '<div class="done"><h1>' + t('thanks') + '</h1>' +
+      '<p class="lead">' + t('onscreen') + '</p></div>';
+  }
+
+  document.getElementById('send').addEventListener('click', function () {
+    var btn = this, msg = document.getElementById('msg');
+    var role = roleValue();
+    if (!role || !touched) { render(); return; }
+    var ans = { s: u[0] * 5, c: u[1] * 5, p: u[2] * 5, role: role };
+    btn.disabled = true; msg.style.color = '#5F6B6D'; msg.textContent = t('sending');
+    function ok() { done(); }
+    function fail(m) {
+      btn.disabled = false; msg.style.color = '#E07A5F';
+      msg.textContent = t('fail').replace('{e}', m || t('network'));
+    }
+    if (!LIVE) { setTimeout(ok, 400); return; }                        // preview: API not set yet
+    // plain-text POST = no CORS preflight; Apps Script answers with JSON
+    fetch(API, { method: 'POST', body: JSON.stringify(ans), redirect: 'follow' })
+      .then(function (r) { return r.json(); })
+      .then(function (res) { if (res && res.ok) ok(); else fail(res && res.error); })
+      .catch(function () { fail(); });
+  });
+
+  setLang(lang);
+  render();
+
+  // Phones: if anything is wider than the screen, shrink the whole page so it fits exactly.
+  function fit() {
+    var b = document.body;
+    b.style.zoom = '';
+    var w = document.documentElement.clientWidth, sw = Math.max(b.scrollWidth, document.getElementById('app').scrollWidth);
+    if (w && sw > w + 1) b.style.zoom = (w / sw).toFixed(3);
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  window.addEventListener('orientationchange', function () { setTimeout(fit, 300); });
+  document.addEventListener('click', function () { setTimeout(fit, 50); });
+  setTimeout(fit, 500);
+})();
+</script>
+</body>
+</html>
